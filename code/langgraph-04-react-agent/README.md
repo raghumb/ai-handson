@@ -1,6 +1,7 @@
 # Langgraph - Building a React Agent - Blog post generator
 
 Medium article explaining this.
+[Langgraph: Your First React Agent is Easier Than You Think](https://raghumb.medium.com/langgraph-your-first-react-agent-is-easier-than-you-think-3a13dcb4a949)
 
 ## Setup
 - Activate an environment
