@@ -1,44 +1,47 @@
 import streamlit as st
 import io
 from PIL import Image
-from agent import run_streaming, run
+from agent import  run
 
-st.set_page_config(page_title="AI Blog Agent", layout="wide")
-st.title("📝 ReAct Blog Generator")
+st.set_page_config(page_title="Hierarchical Agent", layout="wide")
+st.title("📝 Hierarchical Agent")
 
-if "current_topic" not in st.session_state:
-    st.session_state.current_topic = ""
-if "current_draft" not in st.session_state:
-    st.session_state.current_draft = ""
-with st.sidebar:
-    st.header("Agent Architecture")
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-   
-    st.text_input("Enter a blog topic:", key="current_topic")
-
-    if st.button("Generate Blog Post"):
-        # 1. Create a placeholder for the draft so it updates in real-time
-        draft_placeholder = st.empty() 
+# Display chat history
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
         
-        with st.status("Agent is working...", expanded=True) as status:
-            for step in run_streaming(st.session_state.current_topic):
-                for node_name, state_update in step.items():
-                    st.write(f"Entering Node: `{node_name}`")
-                    
-                    # Check if the writer produced a new draft
-                    if node_name == "writer" and "draft" in state_update:
-                        new_draft = state_update["draft"]
-                        st.session_state.current_draft = new_draft
-                        # Update the placeholder immediately
-                        draft_placeholder.markdown(f"### Current Draft\n\n{new_draft}")
-                    
-                    # Handle validator feedback
-                    if node_name == "validator":
-                        if state_update.get("is_valid"):
-                            st.success("✅ Validation Passed!")
-                        else:
-                            st.warning(f"❌ Revision Needed: {state_update.get('feedback')}")
-    
-        st.divider()
-        st.subheader("Final Result")
-        st.markdown(st.session_state.get("current_draft", "No draft generated yet."))
+if prompt := st.chat_input("Enter a prompt."):
+    # Add user message to state
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    # Invoke LangGraph Agent
+    with st.chat_message("assistant"):
+        with st.spinner("Thinking..."):
+            # We pass the full history to the agent if needed, 
+            # or just the current message for a simple ReAct loop
+            response = run(prompt)
+            
+            if response:
+                # Look for tool calls in the message history
+                for msg in response["messages"]:
+                    # ToolMessage holds the actual output from your Python function
+                    if msg.__class__.__name__ == 'ToolMessage':
+                        st.write(f"🔍 Tool Output (Raw): {msg.content}")
+                        st.write(f"🆔 Tool Call ID: {msg.tool_call_id}")
+                    if hasattr(msg, "tool_calls") and msg.tool_calls:
+                        for call in msg.tool_calls:
+                            with st.expander(f"🛠️ Tool Call: {call['name']}"):
+                                st.json(call['args']) # Displays args in a nice formatted block
+            
+                # The last message in the response will be the AI's final answer
+                final_answer = response["messages"][-1].content
+                st.markdown(final_answer)
+                
+                # Add assistant response to state
+                st.session_state.messages.append({"role": "assistant", "content": final_answer})
