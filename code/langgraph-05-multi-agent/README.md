@@ -1,6 +1,6 @@
-# MCP Server and Client in Langgraph
+# Hierarchical Agents in Langgraph
 
-Medium article explaining this. [)
+Medium article explaining this. [Hands-on guide to building a Hierarchical Multi Agent System](https://raghumb.medium.com/hands-on-guide-to-building-a-hierarchical-multi-agent-system-85ffd34f71de)
 
 ## Setup
 - Activate an environment
