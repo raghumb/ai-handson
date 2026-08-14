@@ -15,5 +15,5 @@ your-project-root/
 
 # How to use this skill
 Use the skill invocation command ('slash') and provide your requirements
-eg. /gap-analyzer 'Buid me a tax calculator service to calculate tax such that if revenue R > X, then tax = (R-X)/30, otherwise tax = X/20.
+eg. /gap-analyzer 'Build me a tax calculator service to calculate tax such that if revenue R > X, then tax = (R-X)/30, otherwise tax = X/20. X is a threshold value.
 

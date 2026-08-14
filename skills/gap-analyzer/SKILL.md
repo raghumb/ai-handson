@@ -26,7 +26,6 @@ When the user submits an initial feature or requirement:
 3. **Draft Base Atomic Requirements:** Break the requirement down into discrete items using the `R-01`, `R-02`, ... identifier format.
 4. **Internal Question Queue:** Formulate an internal prioritized queue of targeted, high-impact clarification questions.
 
----
 
 ### 2. The Interrogative Loop (One-by-One Protocol)
 * **Strict Cardinal Rule:** **Ask exactly ONE question per turn.** Do NOT overwhelm the user with a list of questions.
