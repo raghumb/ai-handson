@@ -5,4 +5,6 @@
 - Set up env var with the api key. 
     - export GROQ_API_KEY=<API_KEY>
 
+# Run the code
+python3 agent.py (from app directory)
 
