@@ -21,7 +21,7 @@ Our tutorials focus on **functional code** over theory. Each directory contains 
 *   **[Langgraph-03-MCP-Servers](./code/langgraph-03-mcp):** Integrating MCP Server/Client with Langgraph.
 *   **[Langgraph-04-ReAct-Agents](./code/langgraph-04-react-agent):** Building a ReAct Agent in Langgraph.
 *   **[Langgraph-05-Hierarchical-Agents](./code/langgraph-05-multi-agent):** Implementing Hierarchical Agents in Langgraph.
-*   **[Pydantic-AI-01-Agent-With_tools](./code/pydantic-ai-01):** Implementing Agents using Pydantic-Ai.
+*   **[Pydantic-AI-01-Agent-With-Tools](./code/pydantic-ai-01):** Implementing Agents using Pydantic-Ai.
 
 ---
 ## 🏛️ Curated Content
