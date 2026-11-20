@@ -6,7 +6,19 @@ from dataclasses import dataclass
 
 from dotenv import load_dotenv
 from pydantic_ai import Agent, RunContext
+import logfire
 
+
+logfire.configure(
+    send_to_logfire=False,
+    console=logfire.ConsoleOptions(
+        span_style="indented",
+        verbose=True
+    )
+)
+
+
+logfire.instrument_pydantic_ai()
 
 # --------------------------------------------------
 # Database setup
